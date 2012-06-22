@@ -1,10 +1,10 @@
 module GoogleOAuth
   module Calendar
-    autoload :Acls, "google-oauth/calendar/acls"
-    autoload :Calendars, "google-oauth/calendar/calendars"
-    autoload :Colors, "google-oauth/calendar/colors"
-    autoload :Events, "google-oauth/calendar/events"
-    autoload :FreeBusy, "google-oauth/calendar/free_busy"
-    autoload :Settings, "google-oauth/calendar/settings"
+    autoload :Acls, "calendar/acls"
+    autoload :Calendars, "calendar/calendars"
+    autoload :Colors, "calendar/colors"
+    autoload :Events, "calendar/events"
+    autoload :FreeBusy, "calendar/free_busy"
+    autoload :Settings, "calendar/settings"
   end
 end
