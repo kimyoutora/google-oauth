@@ -11,4 +11,5 @@ group :development do
   gem "bundler", "~> 1.1"
   gem "jeweler", "~> 1.8.3"
   gem "simplecov"
+  gem 'google-api-client'
 end
