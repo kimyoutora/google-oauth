@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "google-oauth"
-  s.version = "0.0.0"
+  s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kang Chen"]
-  s.date = "2012-06-22"
+  s.date = "2012-06-23"
   s.description = "Ruby wrapper for the various Google OAuth 2 APIs"
   s.email = "kangchen614@gmail.com"
   s.extra_rdoc_files = [
@@ -27,6 +27,13 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "google-oauth.gemspec",
+    "lib/google_oauth.rb",
+    "lib/google_oauth/calendar.rb",
+    "lib/google_oauth/calendar/free_busy.rb",
+    "lib/google_oauth/calendar/settings.rb",
+    "lib/google_oauth/client.rb",
+    "lib/google_oauth/contacts.rb",
+    "lib/google_oauth/mail.rb",
     "spec/google-oauth_spec.rb",
     "spec/spec_helper.rb"
   ]

@@ -1,6 +1,6 @@
 module GoogleOAuth
   module Calendar
-    class FreeBusy
+    class Event
     end
   end
 end

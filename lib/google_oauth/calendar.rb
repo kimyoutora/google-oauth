@@ -1,10 +1,15 @@
+require "google_oauth/calendar/acl"
+require "google_oauth/calendar/calendar"
+require "google_oauth/calendar/color"
+require "google_oauth/calendar/event"
+require "google_oauth/calendar/free_busy"
+require "google_oauth/calendar/setting"
+
 module GoogleOAuth
   module Calendar
-    autoload :Acls, "google_oauth/calendar/acls"
-    autoload :Calendars, "google_oauth/calendar/calendars"
-    autoload :Colors, "google_oauth/calendar/colors"
-    autoload :Events, "google_oauth/calendar/events"
-    autoload :FreeBusy, "google_oauth/calendar/free_busy"
-    autoload :Settings, "google_oauth/calendar/settings"
+
+    def return_sample_calendars
+      Acl.new
+    end
   end
 end
