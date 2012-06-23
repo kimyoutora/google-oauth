@@ -1,4 +1,4 @@
 module GoogleOAuth
-  module Contacts
+  module Document
   end
 end
