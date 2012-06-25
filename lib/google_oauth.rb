@@ -12,5 +12,9 @@ module GoogleOAuth
       yield self
       true
     end
+
+    def client(opts)
+      client.new(opts)
+    end
   end
 end

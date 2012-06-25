@@ -1,9 +1,11 @@
 module GoogleOAuth
   module Calendar
-    # https://developers.google.com/google-apps/calendar/v3/reference/calendars
+    # https://developers.google.com/google-apps/calendar/v3/reference/calendarList
 
-    class Calendar
-      attr_accessor :etag, :time_zone, :color_id, :id, :access_role, :summary, :description
+    class CalendarList
+      attr_accessor :kind, :etag, :id, :summary, :description, :location,
+                    :time_zone, :summary_override, :color_id, :hidden, :selected,
+                    :access_role, :default_reminders
 
       def initialize(opts = {})
         opts.each_pair do |key, value|
