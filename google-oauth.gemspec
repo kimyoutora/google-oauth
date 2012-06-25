@@ -37,6 +37,7 @@ Gem::Specification.new do |s|
     "lib/google_oauth/calendar/setting.rb",
     "lib/google_oauth/client.rb",
     "lib/google_oauth/contacts.rb",
+    "lib/google_oauth/document.rb",
     "lib/google_oauth/mail.rb",
     "spec/google-oauth_spec.rb",
     "spec/spec_helper.rb"
