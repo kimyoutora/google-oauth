@@ -16,27 +16,23 @@ module GoogleOAuth
 
       # Clears a primary calendar. This operation deletes all data associated with the primary calendar of an account and cannot be undone.
       def self.clear!
-        
       end
 
       # Deletes a secondary calendar.
       def self.delete!
-        
       end
 
       # Returns metadata for a calendar
       def self.get(calendar_id = 'primary')
-        client.execute(:api_method => service.calendars.get, :parameters => { 'calendarId' => "{#{calendar_id}}" })
+        google_client.execute(:api_method => service.calendars.get, :parameters => { 'calendarId' => "{#{calendar_id}}" })
       end
 
       # Creates a secondary calendar.
       def insert
-
       end
 
       # Updates metadata for a calendar.
       def self.update
-        
       end
 
       # Updates metadata for a calendar. This method supports patch semantics.
