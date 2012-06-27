@@ -14,30 +14,42 @@ module GoogleOAuth
         super
       end
 
-      # Clears a primary calendar. This operation deletes all data associated with the primary calendar of an account and cannot be undone.
-      def self.clear!
+      # Deletes an entry on the user's calendar list.
+      def delete_calendar_list(calendar_id)
       end
 
-      # Deletes a secondary calendar.
-      def self.delete!
+      # Returns an entry on the user's calendar list.
+      def get_calendar_list(calendar_id)
       end
 
-      # Returns metadata for a calendar
-      def self.get(calendar_id = 'primary')
-        google_client.execute(:api_method => service.calendars.get, :parameters => { 'calendarId' => "{#{calendar_id}}" })
+      # Adds an entry to the user's calendar list.
+      def insert_calendar_list(opts = {})
       end
 
-      # Creates a secondary calendar.
-      def insert
+      # Returns entries on the user's calendar list.
+      def list_calendar_list
+        page_token = nil
+        result = client.execute(:api_method => service.calendar_list.list)
+        entries = []
+        while true
+          entries += result.data.items
+          if !(page_token = result.data.next_page_token)
+            break
+          end
+          result = client.execute(:api_method => service.calendar_list.list,
+                                  :parameters => {'pageToken' => page_token})
+        end
+
+        entries
       end
 
-      # Updates metadata for a calendar.
-      def self.update
+      # Updates an entry on the user's calendar list.
+      def update_calendar_list(opts = {})
       end
 
-      # Updates metadata for a calendar. This method supports patch semantics.
-      def self.patch
-        update
+      # Updates an entry on the user's calendar list. This method supports patch semantics
+      def patch_calendar_list(opts = {})
+        update_calendar_list
       end
     end
   end

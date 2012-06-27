@@ -17,7 +17,7 @@ module GoogleOAuth
 
     # Delegate to Google OAuth Client
     def method_missing(method, *args, &block)
-      google_client.send(method, *args, &block) unless self.respond_to?(method)
+      google_client.send(method, *args, &block)
     end
 
     private
