@@ -1,3 +1,4 @@
+require 'google/api_client'
 require 'google_oauth/calendar'
 
 module GoogleOAuth
@@ -18,8 +19,8 @@ module GoogleOAuth
 
     def setup_google_client!
       google_client = Google::APIClient.new
-      google_client.authorization.client_id      = client_id
-      google_client.authorization.client_secret  = client_secret
+      google_client.authorization.client_id      = GoogleOAuth.client_id
+      google_client.authorization.client_secret  = GoogleOAuth.client_secret
       google_client.authorization.scope          = GoogleOAuth.scope
       google_client.authorization.refresh_token  = refresh_token
       google_client.authorization.access_token   = access_token
