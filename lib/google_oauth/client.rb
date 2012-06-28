@@ -5,11 +5,17 @@ module GoogleOAuth
   class Client
     include Calendar
 
-    attr_accessor :refresh_token, :access_token, :google_client
+    attr_accessor :refresh_token, :access_token, :google_client, :expires_at, :authentication
 
     def initialize(options = {})
-      [:refresh_token, :access_token, :google_client].each do |attr|
-        instance_variable_set("@#{attr}".to_sym, options[attr])
+      if options[:authentication]
+        [:refresh_token, :access_token, :google_client, :expires_at].each do |attr|
+          instance_variable_set("@#{attr}".to_sym, options[:authentication].send(attr))
+        end
+      else
+        [:refresh_token, :access_token, :google_client, :expires_at].each do |attr|
+          instance_variable_set("@#{attr}".to_sym, options[attr])
+        end
       end
 
       setup_google_client!
@@ -30,28 +36,24 @@ module GoogleOAuth
       @google_client.authorization.refresh_token  = refresh_token
       @google_client.authorization.access_token   = access_token
 
-      # user = opts[:user]
+      # Google OAuth API is a big liar!
+      # Their API does not seem to respect the expiration time they specify
+      # in their initial response
+      if @google_client.authorization.refresh_token && oauth_expired?
+        new_tokens = @google_client.authorization.fetch_access_token!
 
-      # # Google OAuth API is a big liar!
-      # # Their API does not seem to respect the expiration time they specify
-      # # in their initial response
-      # if client.authorization.refresh_token && user.oauth_token_expired?
-      #   new_tokens = client.authorization.fetch_access_token!
-      #   if opts[:user]
-      #     user.access_token     = new_tokens["access_token"]
-      #     user.oauth_expires_at = 10.minutes.from_now
-      #   end
-      # end
-
-      # @client = client
+        expires_at = 10.minutes.from_now
+        if authentication
+          authentication.access_token     = new_tokens["access_token"]
+          authentication.oauth_expires_at = 10.minutes.from_now
+          authentication.save
+        end
+      end
     end
     
-    # def self.new_from_user(user)
-    #   new({ :access_token => user.access_token, :refresh_token => user.refresh_token, :user => user })
-    # end
-
-    # def expired?
-    #   @client.expired?
+    def oauth_expired?
+      expires_at < Time.now
+    end
 
     def service
       @service ||= google_client.discovered_api('calendar', 'v3')

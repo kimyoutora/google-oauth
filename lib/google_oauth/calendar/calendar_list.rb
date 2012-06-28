@@ -1,6 +1,7 @@
 module GoogleOAuth
   module Calendar
     # https://developers.google.com/google-apps/calendar/v3/reference/calendarList
+    # Google needs better naming schemes for this stuff. What is calling list on calendar list???
 
     class CalendarList
       attr_accessor :kind, :etag, :id, :summary, :description, :location,
@@ -18,16 +19,17 @@ module GoogleOAuth
       def delete_calendar_list(calendar_id)
       end
 
-      # Returns an entry on the user's calendar list.
-      def get_calendar_list(calendar_id)
-      end
+      # # Returns an entry on the user's calendar list.
+      # def get_calendar_list(calendar_id)
+      # end
 
       # Adds an entry to the user's calendar list.
       def insert_calendar_list(opts = {})
       end
 
       # Returns entries on the user's calendar list.
-      def list_calendar_list
+      # CalendarList#list
+      def calendar_list
         page_token = nil
         result = client.execute(:api_method => service.calendar_list.list)
         entries = []
