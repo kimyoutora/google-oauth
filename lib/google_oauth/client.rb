@@ -8,15 +8,11 @@ module GoogleOAuth
     attr_accessor :refresh_token, :access_token, :google_client, :expires_at, :authentication
 
     def initialize(options = {})
-      if options[:authentication]
-        [:refresh_token, :access_token, :google_client, :expires_at].each do |attr|
-          instance_variable_set("@#{attr}".to_sym, options[:authentication].send(attr))
-        end
-      else
-        [:refresh_token, :access_token, :google_client, :expires_at].each do |attr|
-          instance_variable_set("@#{attr}".to_sym, options[attr])
-        end
+      [:refresh_token, :access_token, :expires_at].each do |attr|
+        instance_variable_set("@#{attr}".to_sym, options[:authentication].send(attr))
       end
+
+      @authentication = options[:authentication]
 
       setup_google_client!
     end
@@ -36,6 +32,8 @@ module GoogleOAuth
       @google_client.authorization.refresh_token  = refresh_token
       @google_client.authorization.access_token   = access_token
 
+      puts "@google_client: #{@google_client.authorization.inspect}"
+
       # Google OAuth API is a big liar!
       # Their API does not seem to respect the expiration time they specify
       # in their initial response
@@ -44,8 +42,8 @@ module GoogleOAuth
 
         expires_at = 10.minutes.from_now
         if authentication
-          authentication.access_token     = new_tokens["access_token"]
-          authentication.oauth_expires_at = 10.minutes.from_now
+          authentication.access_token   = new_tokens["access_token"]
+          authentication.expires_at     = 10.minutes.from_now
           authentication.save
         end
       end
