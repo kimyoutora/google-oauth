@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kang Chen"]
-  s.date = "2012-06-27"
+  s.date = "2012-06-30"
   s.description = "Ruby wrapper for the various Google OAuth 2 APIs"
   s.email = "kangchen614@gmail.com"
   s.extra_rdoc_files = [
