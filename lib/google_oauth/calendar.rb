@@ -57,7 +57,7 @@ module GoogleOAuth
 
     # Returns metadata for a calendar
     def get_calendar(calendar_id = 'primary')
-      execute(:api_method => service.calendars.get, :parameters => { 'calendarId' => calendar_id })
+      execute(:api_method => service.calendars.get, :parameters => { 'calendarId' => calendar_id }).data
     end
 
     # Creates a secondary calendar.
@@ -71,6 +71,28 @@ module GoogleOAuth
     # Updates metadata for a calendar. This method supports patch semantics.
     def patch_calendar(opts = {})
       update_calendar(opts)
+    end
+
+    def events_list(calendar_id = 'primary', options = {})
+      %w(timeMin timeMax).each do |time|
+        options[time] = options[time].xmlschema if options[time]
+      end
+
+      params = { 'calendarId' => calendar_id }
+      params.merge!(options)
+      result = execute(:api_method => service.events.list,
+                       :parameters => params)
+      events = []
+      while true
+        events += result.data.items
+        if !(params[:page_token] = result.data.next_page_token)
+          break
+        end
+        result = execute(:api_method => service.events.list,
+                         :parameters => params)
+      end
+
+      events
     end
   end
 end
